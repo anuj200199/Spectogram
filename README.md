@@ -1,5 +1,6 @@
 # Spectogram
 Create spectogram from all audio files in a folder 
+REFERENCE: http://www.frank-zalkow.de/en/code-snippets/create-audio-spectrograms-with-python.html?i=1
 
 For dataset to work on generating spectogram from audio files, you can refer to the link in the data file inside dataset 
 folder.
