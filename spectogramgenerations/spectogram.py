@@ -62,45 +62,41 @@ def plotstft(audiopath,filepath, binsize=2**8,colormap="jet"):
         samples, samplerate = librosa.load(audiopath,sr=44100)
         x=librosa.core.get_duration(samples,samplerate)
         t1 = np.linspace(0, x, samplerate * x)
-        if(t1.shape[0]==samples.shape[0]):
-            imfs=EMD(samples)
-            dec=imfs.decompose()
-            samples=dec[0]+dec[1]
+        
     
-            s = stft(samples, binsize)
+        s = stft(samples, binsize)
             
-            sshow, freq = logscale_spec(s, factor=1.0, sr=samplerate)
+        sshow, freq = logscale_spec(s, factor=1.0, sr=samplerate)
             
-            ims = 20.*np.log10(np.abs(sshow)/10e-6) # amplitude to decibel
+        ims = 20.*np.log10(np.abs(sshow)/10e-6) # amplitude to decibel
 
-            timebins, freqbins = np.shape(ims)
+        timebins, freqbins = np.shape(ims)
             
-            print("timebins: ", timebins)
-            print("freqbins: ", freqbins)
+        print("timebins: ", timebins)
+        print("freqbins: ", freqbins)
             
-            plt.figure(figsize=(15, 7.5))
-            plt.imshow(np.transpose(ims), origin="lower", aspect="auto", cmap=colormap, interpolation="none")
+        plt.figure(figsize=(15, 7.5))
+        plt.imshow(np.transpose(ims), origin="lower", aspect="auto", cmap=colormap, interpolation="none")
             
-            plt.xlabel("time (s)")
-            plt.ylabel("frequency (hz)")
-            plt.xlim([0, timebins-1])
+        plt.xlabel("time (s)")
+        plt.ylabel("frequency (hz)")
+        plt.xlim([0, timebins-1])
             #plt.ylim(0,47)
             
-            xlocs = np.float32(np.linspace(0, timebins-1, 5))
-            plt.xticks(xlocs, ["%.02f" % l for l in ((xlocs*len(samples)/timebins)+(0.5*binsize))/samplerate])
-            ylocs = np.int16(np.round(np.linspace(0, freqbins-1, 10)))
-            plt.savefig(filepath, bbox_inches="tight")
+        xlocs = np.float32(np.linspace(0, timebins-1, 5))
+        plt.xticks(xlocs, ["%.02f" % l for l in ((xlocs*len(samples)/timebins)+(0.5*binsize))/samplerate])
+        ylocs = np.int16(np.round(np.linspace(0, freqbins-1, 10)))
+        plt.savefig(filepath, bbox_inches="tight")
             
-            plt.clf()
+        plt.clf()
             
-            return ims
-        else:
-            print("Not possible")
-  
+        return ims
+        
+        
 import os
 import pandas as pd
 filename=pd.read_csv('protocol/protocol_V2/ASVspoof2017_V2_train.trn.csv',header=None,delimiter=' ')
-for i in range(900,1000):
+for i in range(0,filename.shape[0]):
     if (filename[1][i]=='genuine'):
         ims = plotstft(audiopath=os.path.join("train/ASVspoof2017_V2_train",filename[0][i]),filepath=os.path.join("train/genimfcomb",'genuine('+str(i)+').jpg'))
     else:
