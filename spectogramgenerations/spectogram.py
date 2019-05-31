@@ -4,7 +4,7 @@ Created on Sat Apr 13 21:18:55 2019
 
 @author: Anuj
 """
-
+#reference:http://www.frank-zalkow.de/en/code-snippets/create-audio-spectrograms-with-python.html?i=1
 import numpy as np
 from matplotlib import pyplot as plt
 import scipy.io.wavfile as wav
@@ -95,11 +95,8 @@ def plotstft(audiopath,filepath, binsize=2**8,colormap="jet"):
         
 import os
 import pandas as pd
-filename=pd.read_csv('protocol/protocol_V2/ASVspoof2017_V2_train.trn.csv',header=None,delimiter=' ')
-for i in range(0,filename.shape[0]):
-    if (filename[1][i]=='genuine'):
-        ims = plotstft(audiopath=os.path.join("train/ASVspoof2017_V2_train",filename[0][i]),filepath=os.path.join("train/genimfcomb",'genuine('+str(i)+').jpg'))
-    else:
-        ims = plotstft(audiopath=os.path.join("train/ASVspoof2017_V2_train",filename[0][i]),filepath=os.path.join("train/spoimfcomb",'spoof('+str(i)+').jpg'))
+
+for filename in os.listdir("train/ASVspoof_2017_V2_train"):
+    ims = plotstft(audiopath=os.path.join("train/ASVspoof2017_V2_train",filename[0][i]),filepath=os.path.join("train/spectogram",'genuine('+str(i)+').jpg'))
     
    
