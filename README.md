@@ -1,4 +1,7 @@
-# Spectogram
+# Spectogram 
+
+Spectogram represent variation in frequency with respect to time. 
+
 Create spectogram from all audio files in a folder 
 REFERENCE: http://www.frank-zalkow.de/en/code-snippets/create-audio-spectrograms-with-python.html?i=1
 
